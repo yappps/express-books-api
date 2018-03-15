@@ -21,6 +21,21 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+var Book = require("./models/book");
+var mongoose = require("mongoose");
+
+mongoose
+  .connect("mongodb://localhost/test")
+  .then(function() {
+    console.log("Successfully connected");
+    var book1 = new Book({
+      title: "Tom and Jerry"
+    });
+    book1.save();
+  })
+  .catch(function(err) {
+    throw err;
+  });
 
 app.use("/", index);
 app.use("/books", books);

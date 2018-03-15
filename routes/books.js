@@ -1,13 +1,18 @@
 var express = require("express");
 var router = express.Router();
+var Book = require("../models/book");
 
 /* GET books listing. */
 router.get("/", function(req, res) {
-  res.json({ message: "respond with all books" });
+  Book.find({})
+    .then(books => res.json(books))
+    .catch(err => res.json(err));
+  // res.json({ message: "xxx respond with all books" });
 });
-
 router.get("/:id", function(req, res) {
-  res.json({ message: `get book with id ${req.params.id}` });
+  Book.findById({ _id: req.params.id })
+    .then(book => res.json(book))
+    .catch(err => res.json(err));
 });
 
 router.post("/", function(req, res) {
