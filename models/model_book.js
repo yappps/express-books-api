@@ -1,6 +1,5 @@
 // mongoose library
 var mongoose = require("mongoose");
-// opening a connection to a database
 
 // Defining an URL Schema
 const bookSchema = mongoose.Schema({
@@ -12,5 +11,5 @@ const bookSchema = mongoose.Schema({
   }
 });
 
-const Book = mongoose.model("Model", bookSchema);
+const Book = mongoose.model("Model", bookSchema);   // "Model" should be a singular. A kind of convention
 module.exports = Book;

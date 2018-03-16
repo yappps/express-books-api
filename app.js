@@ -1,3 +1,6 @@
+if(process.env.NODE_ENV !== "production"){
+  require("dotenv").load(); 
+}
 var express = require("express");
 var path = require("path");
 var favicon = require("serve-favicon");
@@ -21,11 +24,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-var Book = require("./models/book");
+
+
+var Book = require("./models/model_book");
 var mongoose = require("mongoose");
 
+// console.log(process.env.MONGODB_URI)
 mongoose
-  .connect("mongodb://localhost/test")
+ .connect(process.env.MONGODB_URI) 
   .then(function() {
     console.log("Successfully connected");
     var book1 = new Book({
